@@ -50,7 +50,7 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{ parts: [{ text: buildPrompt(totalFootprint, categoryBreakdown, completedChallenges) }] }],
-            generationConfig: { maxOutputTokens: 300, temperature: 0.7 },
+            generationConfig: { maxOutputTokens: 800, temperature: 0.7 },
           }),
         }
       );
