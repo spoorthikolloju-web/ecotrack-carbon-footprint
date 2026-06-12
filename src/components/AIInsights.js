@@ -60,8 +60,8 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
       if (!text) throw new Error('No response from Gemini');
       setInsight(text);
       setHasGenerated(true);
-    } catch (err) {
-      setError('Could not generate insights. Please try again.');
+    }catch (err) {
+      setError(`Error: ${err.message}`);
       console.error('Gemini API error:', err);
     } finally {
       setLoading(false);
