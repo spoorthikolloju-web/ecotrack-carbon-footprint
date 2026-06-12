@@ -6,6 +6,7 @@ import DailyLog from './components/DailyLog';
 import Tips from './components/Tips';
 import Challenges from './components/Challenges';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { currentMonthFootprintKg } from './utils/calculations';
 import './App.css';
 
 export default function App() {
@@ -15,17 +16,7 @@ export default function App() {
   const [activeChallenges, setActiveChallenges] = useLocalStorage('ecotrack_active_challenges', []);
   const [completedChallenges, setCompletedChallenges] = useLocalStorage('ecotrack_done_challenges', []);
 
-  const totalFootprint = useMemo(() => {
-    const now = new Date();
-    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-    return Object.entries(logs).reduce((sum, [date, dayLog]) => {
-      const d = new Date(date + 'T00:00:00');
-      if (d >= monthStart && d <= now) {
-        return sum + Object.values(dayLog).reduce((a, b) => a + b, 0) / 1000;
-      }
-      return sum;
-    }, 0);
-  }, [logs]);
+  const totalFootprint = useMemo(() => currentMonthFootprintKg(logs), [logs]);
 
   const handleSaveLog = (date, dayLog) => {
     setLogs(prev => ({ ...prev, [date]: dayLog }));
@@ -47,8 +38,14 @@ export default function App() {
   return (
     <div className="app">
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
-      <main className="main">
-        {activeTab === 'dashboard' && <Dashboard logs={logs} totalFootprint={totalFootprint} />}
+      <main className="main" id="main-content">
+        {activeTab === 'dashboard' && (
+          <Dashboard
+            logs={logs}
+            totalFootprint={totalFootprint}
+            completedChallenges={completedChallenges.length}
+          />
+        )}
         {activeTab === 'calculator' && <Calculator onSave={handleSaveLog} />}
         {activeTab === 'log' && <DailyLog logs={logs} onSave={handleSaveLog} />}
         {activeTab === 'tips' && <Tips savedTips={savedTips} onToggleTip={handleToggleTip} />}
