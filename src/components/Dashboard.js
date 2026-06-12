@@ -5,6 +5,7 @@ import {
   PieChart, Pie, Cell
 } from 'recharts';
 import { INDIA_AVERAGE_FOOTPRINT, WORLD_AVERAGE_FOOTPRINT, PARIS_GOAL } from '../data/constants';
+import AIInsights from './AIInsights';
 
 const CATEGORY_COLORS = {
   transport: '#3b82f6',
@@ -33,7 +34,7 @@ ComparisonBar.propTypes = {
   color: PropTypes.string.isRequired,
 };
 
-export default function Dashboard({ logs, totalFootprint }) {
+export default function Dashboard({ logs, totalFootprint, completedChallenges }) {
   const weeklyData = useMemo(() => {
     const days = [];
     for (let i = 6; i >= 0; i--) {
@@ -60,14 +61,18 @@ export default function Dashboard({ logs, totalFootprint }) {
         if (cats[cat] !== undefined && isFinite(val)) cats[cat] += val;
       });
     });
-    return Object.entries(cats)
+    return cats;
+  }, [logs]);
+
+  const categoryChartData = useMemo(() => {
+    return Object.entries(categoryBreakdown)
       .filter(([, v]) => v > 0)
       .map(([name, value]) => ({
         name: name.charAt(0).toUpperCase() + name.slice(1),
         value: parseFloat((value / 1000).toFixed(2)),
         color: CATEGORY_COLORS[name]
       }));
-  }, [logs]);
+  }, [categoryBreakdown]);
 
   const annualProjected = totalFootprint * 12;
   const footprintKg = totalFootprint.toFixed(1);
@@ -121,6 +126,13 @@ export default function Dashboard({ logs, totalFootprint }) {
         ))}
       </div>
 
+      {/* AI INSIGHTS SECTION */}
+      <AIInsights
+        totalFootprint={totalFootprint}
+        categoryBreakdown={categoryBreakdown}
+        completedChallenges={completedChallenges}
+      />
+
       <div className="charts-row">
         <section className="chart-card" aria-labelledby="trend-heading">
           <h3 id="trend-heading">7-Day Emissions Trend</h3>
@@ -138,19 +150,18 @@ export default function Dashboard({ logs, totalFootprint }) {
 
         <section className="chart-card" aria-labelledby="breakdown-heading">
           <h3 id="breakdown-heading">Category Breakdown</h3>
-          {categoryBreakdown.length > 0 ? (
+          {categoryChartData.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie
-                  data={categoryBreakdown}
+                  data={categoryChartData}
                   cx="50%" cy="50%"
                   innerRadius={50} outerRadius={80}
                   dataKey="value"
                   label={({ name, value }) => `${name}: ${value}kg`}
                   labelLine={false}
-                  aria-label="Pie chart of emissions by category"
                 >
-                  {categoryBreakdown.map((entry, i) => (
+                  {categoryChartData.map((entry, i) => (
                     <Cell key={i} fill={entry.color} aria-label={`${entry.name}: ${entry.value} kg CO2e`} />
                   ))}
                 </Pie>
@@ -184,4 +195,5 @@ export default function Dashboard({ logs, totalFootprint }) {
 Dashboard.propTypes = {
   logs: PropTypes.objectOf(PropTypes.objectOf(PropTypes.number)).isRequired,
   totalFootprint: PropTypes.number.isRequired,
+  completedChallenges: PropTypes.number.isRequired,
 };
