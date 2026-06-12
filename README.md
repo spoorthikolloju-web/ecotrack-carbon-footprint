@@ -3,7 +3,7 @@
 A full-featured React web app to help individuals **track, understand, and reduce** their carbon footprint with personalized insights.
 
 ## 🚀 Live Demo
-> ecotrack-carbon-footprint-3g64f8jkv-spoorthi-s-project.vercel.app
+https://ecotrack-carbon-footprint-3g64f8jkv-spoorthi-s-project.vercel.app/
 
 ## ✨ Features
 
