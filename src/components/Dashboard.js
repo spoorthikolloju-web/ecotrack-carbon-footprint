@@ -161,7 +161,7 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
                   label={({ name, value }) => `${name}: ${value}kg`}
                   labelLine={false}
                 >
-                  {categoryChartData.map((entry, i) => (
+                  {categoryChartData.map((entry) => (
                     <Cell key={entry.name} fill={entry.color} aria-label={`${entry.name}: ${entry.value} kg CO2e`} />
                   ))}
                 </Pie>
