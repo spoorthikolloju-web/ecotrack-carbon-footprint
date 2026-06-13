@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { EMISSION_FACTORS } from '../data/constants';
 
 const QUICK_ACTIONS = [
