@@ -162,7 +162,7 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
                   labelLine={false}
                 >
                   {categoryChartData.map((entry, i) => (
-                    <Cell key={i} fill={entry.color} aria-label={`${entry.name}: ${entry.value} kg CO2e`} />
+                    <Cell key={entry.name} fill={entry.color} aria-label={`${entry.name}: ${entry.value} kg CO2e`} />
                   ))}
                 </Pie>
                 <Tooltip formatter={(v) => [`${v} kg CO₂e`, '']} />
