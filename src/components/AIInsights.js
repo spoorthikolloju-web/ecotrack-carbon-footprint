@@ -69,12 +69,18 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
   }, [totalFootprint, categoryBreakdown, completedChallenges]);
 
   // Format markdown-style bold to JSX
-  const formatInsight = (text) => {
-    return text.split('\n').map((line, i) => {
-      const formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      return <p key={i} dangerouslySetInnerHTML={{ __html: formatted }} style={{ margin: '6px 0', lineHeight: 1.6 }} />;
-    });
-  };
+ const formatInsight = (text) => {
+  return text.split('\n').map((line, i) => {
+    const parts = line.split(/\*\*(.*?)\*\*/g);
+    return (
+      <p key={i} style={{ margin: '6px 0', lineHeight: 1.6 }}>
+        {parts.map((part, j) =>
+          j % 2 === 1 ? <strong key={j}>{part}</strong> : part
+        )}
+      </p>
+    );
+  });
+};
 
   return (
     <section className="ai-insights" aria-labelledby="ai-heading">
