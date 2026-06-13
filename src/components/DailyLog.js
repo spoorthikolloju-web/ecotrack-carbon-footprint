@@ -68,7 +68,7 @@ export default function DailyLog({ logs, onSave }) {
         <h3>Quick Add</h3>
         <div className="quick-grid">
           {QUICK_ACTIONS.map((action, i) => (
-            <button key={i} className="quick-btn" onClick={() => addQuick(action)}>
+            <button key={action.label} className="quick-btn" onClick={() => addQuick(action)}>
               <span>{action.icon}</span>
               <span>{action.label}</span>
               <span className="quick-emission">
