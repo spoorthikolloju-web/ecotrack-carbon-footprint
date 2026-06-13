@@ -75,7 +75,7 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
     return (
       <p key={line} style={{ margin: '6px 0', lineHeight: 1.6 }}>
         {parts.map((part) =>
-          part.match(/\*\*/) ? <strong key={part}>{part}</strong> : part
+          /\*\*/.test(part) ? <strong key={part}>{part}</strong> : part
         )}
       </p>
     );
