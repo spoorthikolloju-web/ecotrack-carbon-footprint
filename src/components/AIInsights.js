@@ -141,6 +141,6 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
 
 AIInsights.propTypes = {
   totalFootprint: PropTypes.number.isRequired,
-  categoryBreakdown: PropTypes.object.isRequired,
+  categoryBreakdown: PropTypes.objectOf(PropTypes.number).isRequired,
   completedChallenges: PropTypes.number.isRequired,
 };
