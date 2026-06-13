@@ -100,7 +100,7 @@ export default function DailyLog({ logs, onSave }) {
       </div>
 
       <div className="log-entries">
-        <h3>Today's Activities</h3>
+        <h3>Today&apos; Activities</h3>
         {Object.keys(todayLog).length === 0 ? (
           <p className="empty-log">No activities logged yet. Use Quick Add above!</p>
         ) : (
