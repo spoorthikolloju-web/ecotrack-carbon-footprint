@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { INDIA_AVERAGE_FOOTPRINT, PARIS_GOAL } from '../data/constants';
 
-const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
 
 function buildPrompt(totalFootprint, categoryBreakdown, completedChallenges) {
   const annual = (totalFootprint * 12).toFixed(1);
@@ -36,6 +35,7 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
   const [hasGenerated, setHasGenerated] = useState(false);
 
   const generateInsight = useCallback(async () => {
+    const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
     if (!GEMINI_API_KEY) {
       setError('Gemini API key not configured. Add REACT_APP_GEMINI_API_KEY to your .env file.');
       return;
