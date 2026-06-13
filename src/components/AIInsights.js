@@ -91,7 +91,7 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
 
       {!hasGenerated && !loading && (
         <div className="ai-cta">
-          <p>Get a personalized carbon footprint analysis based on your data — what's hurting most, and one action you can take this week.</p>
+          <p>Get a personalized carbon footprint analysis based on your data — what&apos; hurting most, and one action you can take this week.</p>
           <button
             className="ai-btn"
             onClick={generateInsight}
