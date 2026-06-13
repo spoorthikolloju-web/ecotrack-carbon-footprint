@@ -145,7 +145,10 @@ export default function Challenges({ activeChallenges, completedChallenges, onTo
           const isExpanded = expandedId === ch.id;
           return (
             <div key={ch.id} className={`challenge-card ${isDone ? 'done' : ''} ${isActive ? 'active' : ''}`}>
-              <div className="challenge-top" onClick={() => setExpandedId(isExpanded ? null : ch.id)}>
+             <div className="challenge-top" 
+               onClick={() => setExpandedId(isExpanded ? null : ch.id)}
+               onKeyDown={e => e.key === 'Enter' && setExpandedId(isExpanded ? null : ch.id)}
+               tabIndex={0}>
                 <div className="challenge-icon-wrap">
                   <span className="challenge-icon">{ch.icon}</span>
                   {isDone && <span className="done-badge">✓</span>}
