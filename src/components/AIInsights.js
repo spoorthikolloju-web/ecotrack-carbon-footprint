@@ -70,12 +70,12 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
 
   // Format markdown-style bold to JSX
  const formatInsight = (text) => {
-  return text.split('\n').map((line, i) => {
+ return text.split('\n').map((line) => {
     const parts = line.split(/\*\*(.*?)\*\*/g);
     return (
-      <p key={i} style={{ margin: '6px 0', lineHeight: 1.6 }}>
-        {parts.map((part, j) =>
-          j % 2 === 1 ? <strong key={j}>{part}</strong> : part
+      <p key={line} style={{ margin: '6px 0', lineHeight: 1.6 }}>
+        {parts.map((part) =>
+          part.match(/\*\*/) ? <strong key={part}>{part}</strong> : part
         )}
       </p>
     );
