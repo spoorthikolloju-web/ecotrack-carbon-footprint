@@ -170,7 +170,7 @@ export default function Challenges({ activeChallenges, completedChallenges, onTo
                 <div className="challenge-steps">
                   <strong>Steps to success:</strong>
                   <ol>
-                    {ch.steps.map((s, i) => <li key={i}>{s}</li>)}
+                    {ch.steps.map((s) => <li key={s}>{s}</li>)}
                   </ol>
                 </div>
               )}
