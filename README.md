@@ -52,7 +52,7 @@ npm start        # dev server at localhost:3000
 npm run build    # production build
 ```
 
-## 🚢 Deploy (Vercel)
+## 🚢 To  Deploy (Vercel)
 ```bash
 npm install -g vercel
 vercel --prod
