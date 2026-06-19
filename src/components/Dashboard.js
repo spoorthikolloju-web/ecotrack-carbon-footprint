@@ -38,15 +38,15 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
   const weeklyData = useMemo(() => {
     const days = [];
     for (let i = 6; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const key = d.toISOString().split('T')[0];
+      const currentDate = new Date();
+      currentDate.setDate(d.getDate() - i);
+      const key = currentDate.toISOString().split('T')[0];
       const dayLog = logs[key];
       const total = dayLog
-        ? Object.values(dayLog).reduce((a, b) => a + (isFinite(b) ? b : 0), 0)
+        ? Object.values(dayLog).reduce((sum, value) => sum + (isFinite(value) ? value : 0), 0)
         : 0;
       days.push({
-        date: d.toLocaleDateString('en-IN', { weekday: 'short' }),
+        date: currentDate.toLocaleDateString('en-IN', { weekday: 'short' }),
         kg: parseFloat((total / 1000).toFixed(2))
       });
     }
