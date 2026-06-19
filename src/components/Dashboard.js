@@ -91,7 +91,7 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
     ? '✅ You\'re below India\'s average! Keep going — the Paris Goal (2.3t) is within reach.'
     : `📊 Your footprint is ${((annualProjected / INDIA_AVERAGE_FOOTPRINT - 1) * 100).toFixed(0)}% above India's average. Small changes add up!`;
   
-  const WelcomeBanner = ({ footprintKg, scoreColor }) => (
+  const WelcomeBanner = ({ footprintKg: bannerFootprintKg, scoreColor: bannerScoreColor }) => (
     <div className="welcome-banner">
       <div>
         <h2>Your Carbon Dashboard</h2>
@@ -99,11 +99,11 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
      </div>
       <div
         className="score-badge"
-        style={{ borderColor: scoreColor, color: scoreColor }}
+        style={{ borderColor: bannerScoreColor, color: bannerScoreColor }}
         role="status"
-        aria-label={`Current monthly footprint: ${footprintKg} kilograms CO2 equivalent`}
+        aria-label={`Current monthly footprint: ${bannerFootprintKg} kilograms CO2 equivalent`}
       >
-        <span className="score-num">{footprintKg}</span>
+        <span className="score-num">{bannerFootprintKg}</span>
         <span className="score-unit">kg CO₂e/mo</span>
       </div>
     </div>
