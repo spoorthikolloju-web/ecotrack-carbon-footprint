@@ -8,17 +8,23 @@ const TABS = [
   { id: 'challenges', label: 'Challenges', emoji: '🏆' },
 ];
 
+export function Logo() {
+  return (
+    <div className="logo">
+      <span className="logo-icon" aria-hidden="true">🌿</span>
+      <div>
+        <h1>EcoTrack</h1>
+        <p>Your Carbon Footprint Companion</p>
+      </div>
+    </div>
+  );
+}
+
 export default function Header({ activeTab, setActiveTab }) {
   return (
     <header className="header" role="banner">
       <div className="header-top">
-        <div className="logo">
-          <span className="logo-icon" aria-hidden="true">🌿</span>
-          <div>
-            <h1>EcoTrack</h1>
-            <p>Your Carbon Footprint Companion</p>
-          </div>
-        </div>
+       <Logo />
       </div>
       <nav className="nav-tabs" aria-label="Main navigation">
         {TABS.map(tab => (
