@@ -82,19 +82,35 @@ export default function AIInsights({ totalFootprint, categoryBreakdown, complete
   });
 };
 
+const AiHeader = () => (
+   <div className="ai-header">
+     <div className="ai-title-row">
+       <span className="ai-icon" aria-hidden="true">🤖</span>
+       <div>
+         <h3 id="ai-heading">AI-Powered Insights</h3>
+         <p>Personalized analysis powered by Google Gemini</p>
+       </div>
+       <span className="ai-badge">Gemini AI</span>
+     </div>
+   </div>
+ );
+
+ const AiCTA = ({ onGenerate }) => (
+   <div className="ai-cta">
+     <p>Get a personalized carbon footprint analysis based on your data — what&apos; hurting most, and one action you can take this week.</p>
+     <button
+       className="ai-btn"
+       onClick={onGenerate}
+       aria-label="Generate AI-powered carbon footprint insights"
+     >
+       ✨ Generate My Insights
+     </button>
+   </div>
+ );
+
   return (
     <section className="ai-insights" aria-labelledby="ai-heading">
-      <div className="ai-header">
-        <div className="ai-title-row">
-          <span className="ai-icon" aria-hidden="true">🤖</span>
-          <div>
-            <h3 id="ai-heading">AI-Powered Insights</h3>
-            <p>Personalized analysis powered by Google Gemini</p>
-          </div>
-          <span className="ai-badge">Gemini AI</span>
-        </div>
-      </div>
-
+      <AiHeader />
       {!hasGenerated && !loading && (
         <div className="ai-cta">
           <p>Get a personalized carbon footprint analysis based on your data — what&apos; hurting most, and one action you can take this week.</p>
