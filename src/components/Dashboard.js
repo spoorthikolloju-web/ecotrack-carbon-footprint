@@ -138,12 +138,6 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
     <main className="dashboard" aria-label="Carbon footprint dashboard">
       <WelcomeBanner footprintKg={footprintKg} scoreColor={scoreColor} />
       <StatsGrid stats={stats} />
-            <div className="stat-info">
-              <span className="stat-value">{value}</span>
-              <span className="stat-label">{label}</span>
-            </div>
-          </div>
-        ))}
       </div>
 
       {/* AI INSIGHTS SECTION */}
@@ -167,8 +161,6 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
             </LineChart>
           </ResponsiveContainer>
         </section>
-  );
-
         <section className="chart-card" aria-labelledby="breakdown-heading">
           <h3 id="breakdown-heading">Category Breakdown</h3>
           {categoryChartData.length > 0 ? (
