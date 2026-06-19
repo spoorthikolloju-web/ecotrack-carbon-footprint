@@ -23,6 +23,7 @@ export default function Calculator({ onSave }) {
     setInputs(prev => ({ ...prev, [`${cat}__${type}`]: val }));
   }, []);
 
+  const customAlert = window.customAlert;
   const handleSave = useCallback(() => {
     const today = new Date().toISOString().split('T')[0];
     const dailyLog = {};
