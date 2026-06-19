@@ -93,7 +93,7 @@ const CHALLENGES = [
 
 const DIFFICULTY_COLOR = { Easy: '#16a34a', Medium: '#f59e0b', Hard: '#ef4444' };
 
-const ChallengeHeader = ({ ch, isDone, isExpanded, toggleExpand }) => (
+const ChallengeHeader = ({ ch, isDone, toggleExpand }) => (
   <div className="challenge-top" role="button" tabIndex={0}
     onClick={toggleExpand}
     onKeyDown={e => e.key === 'Enter' && toggleExpand()}>
