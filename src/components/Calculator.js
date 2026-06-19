@@ -35,7 +35,7 @@ export default function Calculator({ onSave }) {
     });
     onSave(today, dailyLog);
     customAlert('✅ Saved to your log!');
-  }, [inputs, onSave]);
+  }, [inputs, onSave,customAlert]);
 
   return (
     <main className="calculator" aria-label="Carbon footprint calculator">
