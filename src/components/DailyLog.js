@@ -124,17 +124,17 @@ export default function DailyLog({ logs, onSave }) {
         <h3>Recent Days</h3>
         <div className="history-list">
           {Array.from({ length: 7 }, (_, i) => {
-            const d = new Date();
-            d.setDate(d.getDate() - i);
-            const key = d.toISOString().split('T')[0];
+            const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() - i);
+            const key = currentDate.toISOString().split('T')[0];
             const dayData = logs[key];
-            const total = dayData ? Object.values(dayData).reduce((a, b) => a + b, 0) : 0;
+            const total = dayData ? Object.values(dayData).reduce((sum, value) => sum + value, 0) : 0;
             return (
                 <div key={key} className={`history-item ${key === selectedDate ? 'selected' : ''}`}
                    onClick={() => setSelectedDate(key)}
                    onKeyDown={e => e.key === 'Enter' && setSelectedDate(key)}
                    tabIndex={0}>
-                <span>{d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric' })}</span>
+                <span>{currentDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric' })}</span>
                 <div className="history-bar-wrap">
                   <div className="history-bar" style={{ width: `${Math.min(total / 50, 100)}%` }} />
                 </div>
