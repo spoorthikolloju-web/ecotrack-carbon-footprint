@@ -25,7 +25,7 @@ export function currentMonthFootprintKg(logs) {
   const now = new Date();
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
   return Object.entries(logs).reduce((sum, [date, dayLog]) => {
-    const logDate = new Date(date + 'T00:00:00');
+    const logDate = new Date(`${date}T00:00:00`);
     if (logDate >= monthStart && logDate <= now) {
       return sum + Object.values(dayLog).reduce((dailyTotal, entryValue) => dailyTotal + (isFinite(entryValue) ? entryValue : 0), 0) / 1000;
     }
