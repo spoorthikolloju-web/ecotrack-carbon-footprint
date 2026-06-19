@@ -146,7 +146,7 @@ const ChallengeStats = ({ activeChallenges, completedChallenges }) => {
       )}
 
       <div className="challenges-grid">
-        function ChallengeHeader({ch, isDone, isActive, isExpanded, toggleExpand}) {
+       const ChallengeHeader = ({ch, isDone, isActive, isExpanded, toggleExpand}) => {
           return (
             <div className="challenge-top"
               onClick={toggleExpand}
@@ -173,6 +173,7 @@ const ChallengeStats = ({ activeChallenges, completedChallenges }) => {
               </div>
             </div>
           );
+        }
         }
 
         function ChallengeSteps({steps}) {
