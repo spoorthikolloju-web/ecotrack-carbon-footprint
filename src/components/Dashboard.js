@@ -120,12 +120,14 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
   );
 
   const StatsGrid = ({ stats }) => (
+    return ( 
     <div className="stats-grid" role="list" aria-label="Key statistics">
       {stats.map(({ icon, value, label }) => (
         <StatCard key={label} icon={icon} value={value} label={label} />
       ))}
     </div>
   );
+};
 
   const stats = [
     { icon: '📅', value: `${footprintKg} kg`, label: 'This Month' },
