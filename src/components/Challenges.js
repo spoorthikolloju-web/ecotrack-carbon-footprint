@@ -133,19 +133,19 @@ const ChallengeAction = ({ isActive, isDone, onToggleChallenge }) => (
 
 export default function Challenges({ activeChallenges, completedChallenges, onToggleChallenge, onComplete }) {
   const [expandedId, setExpandedId] = useState(null);
-const ChallengeStats = ({ activeChallenges, completedChallenges }) => {
-    const totalSaved = completedChallenges.reduce((sum, id) => {
+const ChallengeStats = ({ activeChallenges: statsActiveChallenges, completedChallenges: statsCompletedChallenges }) => {
+    const totalSaved = statsActiveChallenges && statsCompletedChallenges ? statsCompletedChallenges.reduce((sum, id) => {
       const challenge = CHALLENGES.find(ch => ch.id === id);
       return sum + (challenge?.saving || 0);
-    }, 0);
+    }, 0)  : 0;
     return (
       <div className="challenge-stats">
         <div className="cstat">
-          <span className="cstat-num">{activeChallenges.length}</span>
+          <span className="cstat-num">{statsActiveChallenges.length}</span>
           <span className="cstat-label">Active</span>
         </div>
         <div className="cstat">
-          <span className="cstat-num">{completedChallenges.length}</span>
+          <span className="cstat-num">{statsCompletedChallenges.length}</span>
           <span className="cstat-label">Completed</span>
         </div>
         <div className="cstat">
