@@ -167,6 +167,9 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
             </LineChart>
           </ResponsiveContainer>
         </section>
+      </div>
+    </main>
+  );
 
         <section className="chart-card" aria-labelledby="breakdown-heading">
           <h3 id="breakdown-heading">Category Breakdown</h3>
