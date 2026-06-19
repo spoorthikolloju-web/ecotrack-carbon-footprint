@@ -90,34 +90,54 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
     : annualProjected < INDIA_AVERAGE_FOOTPRINT
     ? '✅ You\'re below India\'s average! Keep going — the Paris Goal (2.3t) is within reach.'
     : `📊 Your footprint is ${((annualProjected / INDIA_AVERAGE_FOOTPRINT - 1) * 100).toFixed(0)}% above India's average. Small changes add up!`;
+  
+  const WelcomeBanner = ({ footprintKg, scoreColor }) => (
+    <div className="welcome-banner">
+      <div>
+        <h2>Your Carbon Dashboard</h2>
+        <p>Track, understand, and reduce your environmental impact</p>
+     </div>
+      <div
+        className="score-badge"
+        style={{ borderColor: scoreColor, color: scoreColor }}
+        role="status"
+        aria-label={`Current monthly footprint: ${footprintKg} kilograms CO2 equivalent`}
+      >
+        <span className="score-num">{footprintKg}</span>
+        <span className="score-unit">kg CO₂e/mo</span>
+      </div>
+    </div>
+  );
+
+  const StatCard = ({ icon, value, label }) => (
+    <div className="stat-card" role="listitem">
+      <div className="stat-icon" aria-hidden="true">{icon}</div>
+      <div className="stat-info">
+        <p className="stat-value">{value}</p>
+        <p className="stat-label">{label}</p>
+      </div>
+    </div>
+  );
+
+  const StatsGrid = ({ stats }) => (
+    <div className="stats-grid" role="list" aria-label="Key statistics">
+      {stats.map(({ icon, value, label }) => (
+        <StatCard key={label} icon={icon} value={value} label={label} />
+      ))}
+    </div>
+  );
+
+  const stats = [
+    { icon: '📅', value: `${footprintKg} kg`, label: 'This Month' },
+    { icon: '📆', value: `${(annualProjected / 1000).toFixed(1)} t`, label: 'Annual Projection' },
+    { icon: '🌳', value: treesNeeded, label: 'Trees to Offset' },
+    { icon: '🚗', value: `${carsEquivalent}x`, label: 'Cars/Year Equiv.' },
+  ];
 
   return (
     <main className="dashboard" aria-label="Carbon footprint dashboard">
-      <div className="welcome-banner">
-        <div>
-          <h2>Your Carbon Dashboard</h2>
-          <p>Track, understand, and reduce your environmental impact</p>
-        </div>
-        <div
-          className="score-badge"
-          style={{ borderColor: scoreColor, color: scoreColor }}
-          role="status"
-          aria-label={`Current monthly footprint: ${footprintKg} kilograms CO2 equivalent`}
-        >
-          <span className="score-num">{footprintKg}</span>
-          <span className="score-unit">kg CO₂e/mo</span>
-        </div>
-      </div>
-
-      <div className="stats-grid" role="list" aria-label="Key statistics">
-        {[
-          { icon: '📅', value: `${footprintKg} kg`, label: 'This Month' },
-          { icon: '📆', value: `${(annualProjected / 1000).toFixed(1)} t`, label: 'Annual Projection' },
-          { icon: '🌳', value: treesNeeded, label: 'Trees to Offset' },
-          { icon: '🚗', value: `${carsEquivalent}x`, label: 'Cars/Year Equiv.' },
-        ].map(({ icon, value, label }) => (
-          <div key={label} className="stat-card" role="listitem">
-            <div className="stat-icon" aria-hidden="true">{icon}</div>
+      <WelcomeBanner footprintKg={footprintKg} scoreColor={scoreColor} />
+      <StatsGrid stats={stats} />
             <div className="stat-info">
               <span className="stat-value">{value}</span>
               <span className="stat-label">{label}</span>
