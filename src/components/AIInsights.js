@@ -111,19 +111,7 @@ const AiHeader = () => (
   return (
     <section className="ai-insights" aria-labelledby="ai-heading">
       <AiHeader />
-      {!hasGenerated && !loading && (
-        <div className="ai-cta">
-          <p>Get a personalized carbon footprint analysis based on your data — what&apos; hurting most, and one action you can take this week.</p>
-          <button
-            className="ai-btn"
-            onClick={generateInsight}
-            aria-label="Generate AI-powered carbon footprint insights"
-          >
-            ✨ Generate My Insights
-          </button>
-        </div>
-      )}
-
+      {!hasGenerated && !loading && <AiCTA onGenerate={generateInsight} />}
       {loading && (
         <div className="ai-loading" role="status" aria-live="polite">
           <div className="ai-spinner" aria-hidden="true" />
