@@ -33,7 +33,7 @@ export default function Calculator({ onSave }) {
       if (grams > 0) dailyLog[`${cat}_${type}`] = grams;
     });
     onSave(today, dailyLog);
-    alert('✅ Saved to your log!');
+    customAlert('✅ Saved to your log!');
   }, [inputs, onSave]);
 
   return (
