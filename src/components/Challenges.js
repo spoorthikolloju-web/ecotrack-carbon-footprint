@@ -135,8 +135,8 @@ export default function Challenges({ activeChallenges, completedChallenges, onTo
   const [expandedId, setExpandedId] = useState(null);
 const ChallengeStats = ({ activeChallenges, completedChallenges }) => {
     const totalSaved = completedChallenges.reduce((sum, id) => {
-      const c = CHALLENGES.find(ch => ch.id === id);
-      return sum + (c?.saving || 0);
+      const challenge = CHALLENGES.find(ch => ch.id === id);
+      return sum + (challenge?.saving || 0);
     }, 0);
     return (
       <div className="challenge-stats">
