@@ -133,7 +133,7 @@ export default function DailyLog({ logs, onSave }) {
                 <div key={key} className={`history-item ${key === selectedDate ? 'selected' : ''}`}
                    onClick={() => setSelectedDate(key)}
                    onKeyDown={e => e.key === 'Enter' && setSelectedDate(key)}
-                   tabIndex={0}>
+                   tabIndex={-1}>
                 <span>{currentDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric' })}</span>
                 <div className="history-bar-wrap">
                   <div className="history-bar" style={{ width: `${Math.min(total / 50, 100)}%` }} />
