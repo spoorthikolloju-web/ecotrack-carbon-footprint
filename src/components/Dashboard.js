@@ -138,8 +138,6 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
     <main className="dashboard" aria-label="Carbon footprint dashboard">
       <WelcomeBanner footprintKg={footprintKg} scoreColor={scoreColor} />
       <StatsGrid stats={stats} />
-      </div>
-
       {/* AI INSIGHTS SECTION */}
       <AIInsights
         totalFootprint={totalFootprint}
