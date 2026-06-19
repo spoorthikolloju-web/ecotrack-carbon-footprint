@@ -134,6 +134,17 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
     { icon: '🚗', value: `${carsEquivalent}x`, label: 'Cars/Year Equiv.' },
   ];
 
+  const TrendChart = ({ data }) => (
+    <ResponsiveContainer width="100%" height={200}>
+      <LineChart data={data} aria-label="Line chart of 7-day CO2 emissions">
+        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+        <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+        <YAxis tick={{ fontSize: 12 }} unit=" kg" />
+        <Tooltip formatter={(v) => [`${v} kg`, 'CO₂e']} />
+        <Line type="monotone" dataKey="kg" stroke="#16a34a" strokeWidth={2.5} dot={{ fill: '#16a34a', r: 4 }} activeDot={{ r: 6 }} />
+      </LineChart>
+    </ResponsiveContainer>
+  );
   return (
     <main className="dashboard" aria-label="Carbon footprint dashboard">
       <WelcomeBanner footprintKg={footprintKg} scoreColor={scoreColor} />
@@ -148,16 +159,7 @@ export default function Dashboard({ logs, totalFootprint, completedChallenges })
       <div className="charts-row">
         <section className="chart-card" aria-labelledby="trend-heading">
           <h3 id="trend-heading">7-Day Emissions Trend</h3>
-          <ResponsiveContainer width="100%" height={200}>
-            <LineChart data={weeklyData} aria-label="Line chart of 7-day CO2 emissions">
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-              <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} unit=" kg" />
-              <Tooltip formatter={(v) => [`${v} kg`, 'CO₂e']} />
-              <Line type="monotone" dataKey="kg" stroke="#16a34a" strokeWidth={2.5}
-                dot={{ fill: '#16a34a', r: 4 }} activeDot={{ r: 6 }} />
-            </LineChart>
-          </ResponsiveContainer>
+          <TrendChart data={weeklyData} />
         </section>
         <section className="chart-card" aria-labelledby="breakdown-heading">
           <h3 id="breakdown-heading">Category Breakdown</h3>
