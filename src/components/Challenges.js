@@ -95,31 +95,38 @@ const DIFFICULTY_COLOR = { Easy: '#16a34a', Medium: '#f59e0b', Hard: '#ef4444' }
 
 export default function Challenges({ activeChallenges, completedChallenges, onToggleChallenge, onComplete }) {
   const [expandedId, setExpandedId] = useState(null);
+const ChallengeStats = ({ activeChallenges, completedChallenges }) => {
+    const totalSaved = completedChallenges.reduce((sum, id) => {
+      const c = CHALLENGES.find(ch => ch.id === id);
+      return sum + (c?.saving || 0);
+    }, 0);
+    return (
+      <div className="challenge-stats">
+        <div className="cstat">
+          <span className="cstat-num">{activeChallenges.length}</span>
+          <span className="cstat-label">Active</span>
+        </div>
+        <div className="cstat">
+          <span className="cstat-num">{completedChallenges.length}</span>
+          <span className="cstat-label">Completed</span>
+        </div>
+        <div className="cstat">
+          <span className="cstat-num">{totalSaved} kg</span>
+          <span className="cstat-label">CO₂e Saved</span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="challenges-page">
       <div className="challenges-header">
         <h2>Eco Challenges</h2>
         <p>Take on these missions to build sustainable habits</p>
-        <div className="challenge-stats">
-          <div className="cstat">
-            <span className="cstat-num">{activeChallenges.length}</span>
-            <span className="cstat-label">Active</span>
-          </div>
-          <div className="cstat">
-            <span className="cstat-num">{completedChallenges.length}</span>
-            <span className="cstat-label">Completed</span>
-          </div>
-          <div className="cstat">
-            <span className="cstat-num">
-              {completedChallenges.reduce((sum, id) => {
-                const c = CHALLENGES.find(ch => ch.id === id);
-                return sum + (c?.saving || 0);
-              }, 0)} kg
-            </span>
-            <span className="cstat-label">CO₂e Saved</span>
-          </div>
-        </div>
+        <ChallengeStats
+          activeChallenges={activeChallenges}
+          completedChallenges={completedChallenges}
+        />
       </div>
 
       {activeChallenges.length > 0 && (
@@ -139,49 +146,80 @@ export default function Challenges({ activeChallenges, completedChallenges, onTo
       )}
 
       <div className="challenges-grid">
+        function ChallengeHeader({ch, isDone, isActive, isExpanded, toggleExpand}) {
+          return (
+            <div className="challenge-top"
+              onClick={toggleExpand}
+              onKeyDown={e => e.key === 'Enter' && toggleExpand()}
+              tabIndex={0}
+            >
+              <div className="challenge-icon-wrap">
+                <span className="challenge-icon">{ch.icon}</span>
+                {isDone && <span className="done-badge">✓</span>}
+              </div>
+              <div className="challenge-info">
+                <h4>{ch.title}</h4>
+                <p>{ch.description}</p>
+                <div className="challenge-meta">
+                  <span className="ch-duration">⏱ {ch.duration}</span>
+                  <span className="ch-saving">🌿 {ch.saving} kg CO₂e</span>
+                  <span
+                    className="ch-diff"
+                    style={{ color: DIFFICULTY_COLOR[ch.difficulty] }}
+                  >
+                    {ch.difficulty}
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        function ChallengeSteps({steps}) {
+          return (
+            <div className="challenge-steps">
+              <strong>Steps to success:</strong>
+              <ol>
+                {steps.map(s => <li key={s}>{s}</li>)}
+              </ol>
+            </div>
+          );
+        }
+
+        function ChallengeAction({isActive, isDone, onToggleChallenge}) {
+          return (
+            <button
+              className={`challenge-btn ${isActive ? 'active' : isDone ? 'done' : ''}`}
+              onClick={() => !isDone && onToggleChallenge()}
+              disabled={isDone}
+            >
+              {isDone ? '🎉 Completed!' : isActive ? '⏸ Quit Challenge' : '▶ Start Challenge'}
+            </button>
+          );
+        }
+
         {CHALLENGES.map(ch => {
           const isActive = activeChallenges.includes(ch.id);
           const isDone = completedChallenges.includes(ch.id);
           const isExpanded = expandedId === ch.id;
           return (
-            <div key={ch.id} className={`challenge-card ${isDone ? 'done' : ''} ${isActive ? 'active' : ''}`}>
-             <div className="challenge-top" 
-               onClick={() => setExpandedId(isExpanded ? null : ch.id)}
-               onKeyDown={e => e.key === 'Enter' && setExpandedId(isExpanded ? null : ch.id)}
-               tabIndex={0}>
-                <div className="challenge-icon-wrap">
-                  <span className="challenge-icon">{ch.icon}</span>
-                  {isDone && <span className="done-badge">✓</span>}
-                </div>
-                <div className="challenge-info">
-                  <h4>{ch.title}</h4>
-                  <p>{ch.description}</p>
-                  <div className="challenge-meta">
-                    <span className="ch-duration">⏱ {ch.duration}</span>
-                    <span className="ch-saving">🌿 {ch.saving} kg CO₂e</span>
-                    <span className="ch-diff" style={{ color: DIFFICULTY_COLOR[ch.difficulty] }}>
-                      {ch.difficulty}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {isExpanded && (
-                <div className="challenge-steps">
-                  <strong>Steps to success:</strong>
-                  <ol>
-                    {ch.steps.map((s) => <li key={s}>{s}</li>)}
-                  </ol>
-                </div>
-              )}
-
-              <button
-                className={`challenge-btn ${isActive ? 'active' : isDone ? 'done' : ''}`}
-                onClick={() => !isDone && onToggleChallenge(ch.id)}
-                disabled={isDone}
-              >
-                {isDone ? '🎉 Completed!' : isActive ? '⏸ Quit Challenge' : '▶ Start Challenge'}
-              </button>
+            <div
+               key={ch.id}
+               className={`challenge-card ${isDone ? 'done' : ''} ${isActive ? 'active' : ''}`}
+            >
+              <ChallengeHeader
+                ch={ch}
+                isDone={isDone}
+                isActive={isActive}
+                isExpanded={isExpanded}
+                toggleExpand={() => setExpandedId(isExpanded ? null : ch.id)}
+              />
+              {isExpanded && <ChallengeSteps steps={ch.steps} />}
+              <ChallengeAction
+                isActive={isActive}
+                isDone={isDone}
+                onToggleChallenge={() => onToggleChallenge(ch.id)}
+              />
             </div>
           );
         })}
