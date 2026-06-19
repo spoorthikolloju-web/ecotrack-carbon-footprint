@@ -60,7 +60,7 @@ export default function DailyLog({ logs, onSave }) {
       </div>
 
       <div className="day-summary">
-        <span>Total for {new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' })}:</span>
+         <span>Total for {new Date(`${selectedDate}T00:00:00`).toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' })}:</span>
         <strong>{(dayTotal / 1000).toFixed(2)} kg CO₂e</strong>
       </div>
 
