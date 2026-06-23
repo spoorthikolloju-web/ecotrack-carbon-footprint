@@ -74,4 +74,4 @@ Helps users understand that small daily choices — switching to public transpor
 | LPG | 1.51 kg CO₂e/kg |
 
 ---
-Built with ❤️ for a greener planet 🌎
+
